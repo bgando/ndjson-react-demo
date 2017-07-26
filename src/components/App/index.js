@@ -12,7 +12,7 @@ class App extends Component {
   }
 
   componentDidMount(){
-    fetch('http://localhost:5000/api/5', {
+    fetch('http://localhost:5000/api/7', {
       method: 'get'
     }).then(data => {
       return ndjsonStream(data.body);
@@ -40,7 +40,7 @@ class App extends Component {
       <h1> React + NDJSON Stream Demo</h1>
         <ul>
           {this.state.todos.map(todo =>
-            <li key={todo}>{todo}</li>
+            <li>{todo}</li>
           )}
         </ul>
       </div>
