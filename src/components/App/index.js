@@ -7,7 +7,7 @@ class App extends Component {
     super(props);
 
     this.state = {
-      todos: [1,2,3]
+      todos: []
     };
   }
 
@@ -39,8 +39,8 @@ class App extends Component {
       <div className="App">
       <h1> React + NDJSON Stream Demo</h1>
         <ul>
-          {this.state.todos.map(todo =>
-            <li>{todo}</li>
+          {this.state.todos.map((todo, i) =>
+            <li key={i}>{todo}</li>
           )}
         </ul>
       </div>
