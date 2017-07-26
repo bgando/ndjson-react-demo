@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './style.css';
 import ndjsonStream from 'can-ndjson-stream';
 
@@ -21,12 +20,12 @@ class App extends Component {
       const streamReader = todoStream.getReader();
       const read = result => {
         if (result.done) return;
-        console.log(result.value.user)
+
         this.setState({ 
           todos: this.state.todos.concat([result.value.user])
         });
 
-        streamReader.read().then(read); //recurse through the stream
+        streamReader.read().then(read);
       };
       
       streamReader.read().then(read); 
@@ -38,9 +37,10 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+      <h1> React + NDJSON Stream Demo</h1>
         <ul>
           {this.state.todos.map(todo =>
-            <li>{todo}</li>
+            <li key={todo}>{todo}</li>
           )}
         </ul>
       </div>
