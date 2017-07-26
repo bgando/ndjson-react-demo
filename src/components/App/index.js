@@ -12,7 +12,7 @@ class App extends Component {
   }
 
   componentDidMount(){
-    fetch('http://localhost:5000/api/7', {
+    fetch('http://localhost:5000/api/10', {
       method: 'get'
     }).then(data => {
       return ndjsonStream(data.body);

@@ -19,25 +19,23 @@ app.get('/', (req, res) => {
 });
 
 
-app.get('/api/:lines', (req, res) => {
+app.get('/api/:lines?', (req, res) => {
   let readStream = fs.createReadStream(__dirname + '/todos.ndjson').pipe(ndjson.parse());
-
-  const chunks = [];
+  let count = 0;
   readStream.on('data', (data) => {
-    if(req.params.lines && chunks.length < req.params.lines) {
-      chunks.push(JSON.stringify(data));
+    if (req.params.lines && (req.params.lines <= count)) {
+      readStream.pause();
+      res.end();
+    } else {
+      res.write(JSON.stringify(data) +'\n');
+      ++count;
     }
+
+    // res.write(ndjson.serialize(data));
   });
 
   readStream.on('end', () => {
-    var id = setInterval(() => {
-      if (chunks.length) {
-        res.write(chunks.shift() + '\n');
-      } else {
-        clearInterval(id);
-        res.end();
-      }
-    }, 500);
+    res.end();
   });
 })
 
